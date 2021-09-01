@@ -13,6 +13,7 @@
                     :key="i"
                     v-for="(img, i) in images"
                     :src="img.src"
+                    @removeImg="onRemove(i)"
                     />
             </div>
         </div>
@@ -34,7 +35,7 @@ export default {
             file: null, // Загруженный через FileReader файл
             imgUrl: "", // Ссылка на картинку
             checkDragnDrop: false, // Доступно ли перетаскивание в браузере
-            imgFiles: [], // Массив перенесённых(drop) файлов
+            imgDropFiles: [], // Массив перенесённых(drop) файлов
         }
     },
     mounted() {
@@ -54,7 +55,7 @@ export default {
             }.bind(this));
 
             this.$refs.drop_container.addEventListener('drop', function(e) {
-                this.imgFiles.push( e.dataTransfer.files[0] );
+                this.imgDropFiles.push( e.dataTransfer.files[0] );
                 // Перебираем файлы передаваемые пользователем
                 for( let i = 0; i < e.dataTransfer.files.length; i++ ){
                     // Пушим в наш подготовленный массив
@@ -131,6 +132,12 @@ export default {
             } else {
                 alert("Это не картинка!")
             }
+        },
+        onRemove(index) {
+            // Удаляем дропные файлы
+            this.imgDropFiles.splice(index, 1);
+            // Удаляем объект со ссылкой из хранилища
+            this.$store.dispatch('actRemoveImage', index)
         }
     }
 }
