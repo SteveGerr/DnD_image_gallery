@@ -13,6 +13,9 @@ const store = new Vuex.Store({
   mutations: {
     SET_IMAGES (state, image) {
       state.images.push(image);
+    },
+    REMOVE_IMAGES (state, index) {
+      state.images.splice(index, 1)
     }
   },
   actions: {
@@ -24,6 +27,15 @@ const store = new Vuex.Store({
         console.error(error);
       }
     },
+
+    // Удаление картинки
+    async actRemoveImage({commit}, index) {
+      try {
+        await commit('REMOVE_IMAGES', index)
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 })
 
