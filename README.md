@@ -1,4 +1,4 @@
-# image_gallery
+# image_gallery [ссылка на демо страницу](https://stevegerr.github.io/DnD_image_gallery/) 
 
 # Галерея картинок с возможностью загружать и удалять изображения
 - Основной функционал:
